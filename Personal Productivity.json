@@ -1,0 +1,393 @@
+{
+  "name": "Personal Productivity",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -432,
+        0
+      ],
+      "id": "2924c2c1-d95d-4eb1-be54-25d2666379a6",
+      "name": "Telegram Trigger",
+      "webhookId": "b11cdd2c-a352-419f-ab08-8b024542adb5",
+      "credentials": {
+        "telegramApi": {
+          "id": "4I0uB8QoOr10YNCg",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "603258cc-5388-496a-8bad-0f88ac95c40e",
+              "name": "task",
+              "value": "={{$json.message.text}}",
+              "type": "string"
+            },
+            {
+              "id": "b9c21e65-eee4-425b-8849-875f1c151e9a",
+              "name": "=",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -240,
+        0
+      ],
+      "id": "ff2d0780-67b5-44b5-8764-c6299547d310",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1xD-U4TCSZh_8I8WeQSzuTfq4ZYQCYd8_mhFc6WCDUsU",
+          "mode": "list",
+          "cachedResultName": "Personal Productivity",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xD-U4TCSZh_8I8WeQSzuTfq4ZYQCYd8_mhFc6WCDUsU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xD-U4TCSZh_8I8WeQSzuTfq4ZYQCYd8_mhFc6WCDUsU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Task": "={{$json.task}}",
+            "Status": "Pending",
+            "Date": "={{$now}}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Task",
+              "displayName": "Task",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Priority",
+              "displayName": "Priority",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -64,
+        0
+      ],
+      "id": "9518e565-9185-4e11-9118-6d5e20c43c54",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "IbOIyfthxHv3BvEe",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        112,
+        0
+      ],
+      "id": "d96d4a12-6e7e-4e82-a214-3b756e9dd72d",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1xD-U4TCSZh_8I8WeQSzuTfq4ZYQCYd8_mhFc6WCDUsU",
+          "mode": "list",
+          "cachedResultName": "Personal Productivity",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xD-U4TCSZh_8I8WeQSzuTfq4ZYQCYd8_mhFc6WCDUsU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xD-U4TCSZh_8I8WeQSzuTfq4ZYQCYd8_mhFc6WCDUsU/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        320,
+        0
+      ],
+      "id": "199525a0-5169-4db2-8da2-9451856a4150",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "IbOIyfthxHv3BvEe",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "b57f7152-82a8-4488-9dda-ae37c64c0c3a",
+              "leftValue": "={{$json.Status}}",
+              "rightValue": "Pending",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        528,
+        0
+      ],
+      "id": "4ff98c90-60b5-4d62-bf70-fe00bf97fd67",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "chatId": "1259772377",
+        "text": "=Reminder: You still have a pending task  Task: {{$json.Task}} Status: {{$json.Status}}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        720,
+        -144
+      ],
+      "id": "adce7958-c1f0-4a1e-b6c0-7d95cb76ee6d",
+      "name": "Send a text message",
+      "webhookId": "8cbbc575-5d91-4304-95db-ab9e86280301",
+      "credentials": {
+        "telegramApi": {
+          "id": "4I0uB8QoOr10YNCg",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1xD-U4TCSZh_8I8WeQSzuTfq4ZYQCYd8_mhFc6WCDUsU",
+          "mode": "list",
+          "cachedResultName": "Personal Productivity",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xD-U4TCSZh_8I8WeQSzuTfq4ZYQCYd8_mhFc6WCDUsU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xD-U4TCSZh_8I8WeQSzuTfq4ZYQCYd8_mhFc6WCDUsU/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        928,
+        -144
+      ],
+      "id": "2116428f-bffc-421c-b69d-2de80c2e7ecc",
+      "name": "Get row(s) in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "IbOIyfthxHv3BvEe",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "1259772377",
+        "text": "No pending tasks today. Great job!",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        720,
+        160
+      ],
+      "id": "48f859ed-9515-4182-b2e8-2fba44197c91",
+      "name": "Send a text message1",
+      "webhookId": "1b9edc5d-9147-499b-a47b-6a5aaaf34931",
+      "credentials": {
+        "telegramApi": {
+          "id": "4I0uB8QoOr10YNCg",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "906af192-6e49-4eeb-8604-e6b9b4151ec8",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3fc8b72ebd579d5b7c6e3cdcbd46e525a93ad0fc7b8fa5a8ed9f4733820e0bbc"
+  },
+  "id": "qcmLh1uceVqIxOqI",
+  "tags": []
+}
